@@ -12,9 +12,11 @@ from werkzeug import secure_filename
 UPLOAD_FOLDER = '/home/sdv/m2bi/nbruneau/Documents/M2BI/meet_u/2017-2018_Equipe2/data'
 ALLOWED_EXTENSIONS = set(['txt', 'pdb'])
 directory = os.getcwd()
+print("-------------------------------------------")
+print(directory)
 server = Flask(__name__,
-                    static_folder=directory+'/static',
-                    template_folder=directory+'/templates')
+                    static_folder=directory+'/src/static',
+                    template_folder=directory+'/src/templates')
 server.secret_key = 'clE_Ma9!k'
 server.config['TRAP_HTTP_EXCEPTIONS'] = True
 server.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -49,15 +51,18 @@ def run():
                 f_ligand.save(os.path.join(server.config['UPLOAD_FOLDER'], filename_l))
 
                 # reussite des test et run avec les deux pdb upload
+                flash(u'Vos fichiers ont été correctement importés')
                 return(render_template('run.html',
                                         directory=directory),
                         200)
             else:
                 # erreur fichier ligand
+                flash(u'Erreur avec le fichier PDB du ligand', 'erreur')
                 return(render_template('upload.html'),
                     200)
         else:
             # erreur fichier recepteur
+            flash(u'Erreur avec le fichier PDB du récepteur', 'erreur')
             return(render_template('upload.html'),
                     200)
     else:

@@ -92,6 +92,10 @@ div.upload_file{
 	padding: 20px;
 }
 
+div.upload_file form {
+	padding-left: 8%;
+}
+
 div.upload_file form ul li{
 	list-style:none;
 }
